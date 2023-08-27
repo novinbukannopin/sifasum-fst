@@ -6,6 +6,10 @@ class HomeController
 {
     public function index()
     {
-        return view('home');
+        $user = auth()->user();
+        $name = $user ? $user->name : 'guest';
+        // dd($user);
+        return view('home', ['name' => $name]);
+        // return view('home');
     }
 }

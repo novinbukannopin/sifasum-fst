@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'site_title' => 'Faculty Room Booking',
+    'site_title' => 'SIFASUM - FST',
 ];
