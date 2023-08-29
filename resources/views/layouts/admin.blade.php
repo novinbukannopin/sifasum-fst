@@ -26,6 +26,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.5.0/css/perfect-scrollbar.min.css"
         rel="stylesheet" />
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet" />
+    <link rel="shortcut icon" href="{{ url('/img/uin.png') }}" type="image/x-icon">
     @yield('styles')
 </head>
 
@@ -62,11 +63,11 @@
                         </div>
                     </li>
                 @endif
-                @if ($name)
-                    {{ $name }}
-                @else
-                    Welcome Guest
-                @endif
+                {{-- @if ($name) --}}
+                {{-- {{ $name }} --}}
+                {{-- @else --}}
+                {{-- Welcome Guest --}}
+                {{-- @endif --}}
 
 
             </ul>

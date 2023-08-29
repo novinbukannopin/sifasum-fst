@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 // Route::redirect('/', '/');
 Route::get('/', [App\Http\Controllers\HomepageController::class, 'index'])->name('homepage');
+// Route::get('/search-room-avail', [App\Http\Controllers\HomepageController::class, 'searchRoomAvail'])->name('searchRoomAvail');
+// Route::post('/search', [App\Http\Controllers\HomepageController::class, 'searchRoomAvail'])->name('homepage');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/home', function () {

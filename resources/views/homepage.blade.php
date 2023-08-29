@@ -13,7 +13,7 @@
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ url('') }}/img/favicon/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="{{ url('') }}/img/uin.png" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -32,10 +32,10 @@
     <!-- Core CSS -->
     <link rel="stylesheet" href="{{ url('') }}/css/rtl/core.css" class="template-customizer-core-css" />
     <link rel="stylesheet" href="{{ url('') }}/css/rtl/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="{{ url('') }}//css/demo.css" />
+    <link rel="stylesheet" href="{{ url('') }}/css/demo.css" />
 
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="{{ url('') }}//vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="{{ url('') }}/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
     <!-- Page CSS -->
 
@@ -55,20 +55,22 @@
         <div class="layout-container">
             <nav class="navbar navbar-expand-lg bg-primary">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="javascript:void(0)">App</a>
+                    <img src="{{ url('/img/uin.png') }}" style="height: 60px; margin-right: 15px;" alt="">
+                    <a class="navbar-brand ml-3" href="javascript:void(0)">SIFASUM</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbar-ex-7">
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
                     <div class="collapse navbar-collapse" id="navbar-ex-7">
-                        <div class="navbar-nav me-auto">
+                        {{-- <div class="navbar-nav me-auto">
                             <a class="nav-item nav-link active" href="javascript:void(0)">Bayaran</a>
-                        </div>
+                        </div> --}}
                         <ul class="navbar-nav ms-lg-auto">
                             <li class="nav-item">
-                                <a class="nav-link" href="javascript:void(0);"><i
-                                        class="tf-icons navbar-icon mdi mdi-lock-outline me-1"></i>Login</a>
+                                <a class="nav-link" href="{{ url('/login') }}">
+                                    <i class="tf-icons navbar-icon mdi mdi-lock-outline me-1"></i>Login
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -79,39 +81,61 @@
                 <!-- Help Center Header -->
                 <div class="help-center-header d-flex flex-column justify-content-center align-items-center mt-5">
                     <h3 class="text-center text-primary fw-semibold">Hello, how can we help?</h3>
-                    <p class="text-center px-3 mb-0">Common troubleshooting topics: eCommerce, Blogging to payment</p>
-                    <div class="input-wrapper my-3 input-group input-group-lg input-group-merge px-5">
+                    <p class="text-center px-3 mb-0">Eksplorasi dan Pinjam Ruangan Kampus Sesuai Kebutuhanmu!</p>
+                    {{-- <div class="input-wrapper my-1 input-group input-group-lg input-group-merge px-5">
                         <span class="input-group-text" id="basic-addon1"><i class="mdi mdi-magnify mdi-20px"></i></span>
-                        <input type="text" class="form-control" placeholder="Search" aria-label="Search"
-                            aria-describedby="basic-addon1">
-                    </div>
+                        <form action="{{ route('searchRoomAvail') }}" method="POST" id="searchRoomAvail">
+                            @csrf
+                            <input type="text" class="form-control" placeholder="Search" aria-label="Search"
+                                aria-describedby="basic-addon1" name="name">
+                            <button type="submit" style="display: none;"></button>
+                        </form>
+                    </div> --}}
                 </div>
+                {{-- <div class="help-center-knowledge-base bg-help-center py-5 mt-4">
+
+                    <div class="container-xl">
+
+                    </div>
+                </div> --}}
+
+
+
                 <!-- /Help Center Header -->
 
                 <!-- Popular Articles -->
                 <div class="help-center-popular-articles py-5">
                     <div class="container-xl">
-                        <h4 class="text-center my-4">Popular Articles</h4>
+                        <h4 class="text-center my-4">Popular Room</h4>
                         <div class="row mb-2">
                             <div class="col-lg-10 mx-auto">
                                 <div class="row">
+                                    <?php $i = 0; ?>
                                     @foreach ($rooms as $key => $room)
+                                        <?php if ($i == 3) {
+                                            break;
+                                        } ?>
                                         <div class="col-md-4 mb-md-0 mb-4">
                                             <div class="card border shadow-none">
+                                                <div class="carousel-item active d-inline">
+                                                    <img class="d-block w-100"
+                                                        src="{{ url('') }}/img/elements/18.jpg"
+                                                        alt="Third slide">
+                                                </div>
                                                 <div class="card-body text-center">
-                                                    {{-- <img class="mb-3" src="{{ url('') }}/svg/icons/rocket.svg"
-                                                        height="60" alt="Help center landing"> --}}
-                                                    <div class="carousel-item active">
-                                                        <img class="d-block w-100"
-                                                            src="../../assets/img/elements/18.jpg" alt="Third slide">
-                                                    </div>
-                                                    <h5>Getting Started</h5>
-                                                    <p>Whether you're new or you're a power user, this article will…</p>
+                                                    {{-- <img class="mb-3"
+                                                        src="{{ url('') }}/svg/icons/rocket.svg" height="60"
+                                                        alt="Help center landing"> --}}
+
+                                                    <h5>{{ $room->name }}</h5>
+                                                    <p>{{ $room->description }}</p>
+                                                    <p>Kapasitas : {{ $room->capacity }} orang</p>
                                                     <a class="btn btn-outline-primary waves-effect"
-                                                        href="./pages-help-center-article.html">Read More</a>
+                                                        href="{{ url('/login') }}">Book</a>
                                                 </div>
                                             </div>
                                         </div>
+                                        <?php $i++; ?>
                                     @endforeach
                                 </div>
                             </div>
@@ -121,278 +145,35 @@
                 <!-- /Popular Articles -->
 
                 <!-- Knowledge Base -->
-                <div class="help-center-knowledge-base bg-help-center py-5 mt-4">
-                    <div class="container-xl">
-                        <h4 class="text-center my-4">Knowledge Base</h4>
-                        <div class="row">
-                            <div class="col-lg-10 mx-auto mb-2">
-                                <div class="row">
-                                    <div class="col-md-4 col-sm-6 mb-4">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <div class="d-flex align-items-center mb-2">
-                                                    <div class="avatar avatar-sm">
-                                                        <div
-                                                            class="avatar-initial bg-label-success rounded me-2 w-100">
-                                                            <i class="mdi mdi-rocket-outline mdi-20px"> </i>
-                                                        </div>
-                                                    </div>
-                                                    <h5 class="mt-3 ms-2">Getting Started</h5>
-                                                </div>
-                                                <ul>
-                                                    <li class="text-primary py-1">
-                                                        <a href="./pages-help-center-categories.html">Account</a>
-                                                    </li>
-                                                    <li class="text-primary pb-1">
-                                                        <a
-                                                            href="./pages-help-center-categories.html">Authentication</a>
-                                                    </li>
-                                                    <li class="text-primary pb-1">
-                                                        <a href="./pages-help-center-categories.html">Billing</a>
-                                                    </li>
-                                                </ul>
-                                                <p class="mb-0">
-                                                    <a href="javascript:void(0);" class="text-body">14 articles</a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-6 mb-4">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <div class="d-flex align-items-center mb-2">
-                                                    <div class="avatar avatar-sm">
-                                                        <div class="avatar-initial bg-label-info rounded me-2 w-100">
-                                                            <i class="mdi mdi-gift-outline mdi-20px"> </i>
-                                                        </div>
-                                                    </div>
-                                                    <h5 class="mt-3 ms-2">Orders</h5>
-                                                </div>
-                                                <ul>
-                                                    <li class="text-primary py-1">
-                                                        <a href="./pages-help-center-categories.html">Processing
-                                                            orders</a>
-                                                    </li>
-                                                    <li class="text-primary pb-1">
-                                                        <a href="./pages-help-center-categories.html">Payments</a>
-                                                    </li>
-                                                    <li class="text-primary pb-1">
-                                                        <a href="./pages-help-center-categories.html">Returns, Refunds
-                                                            and Replacements</a>
-                                                    </li>
-                                                </ul>
-                                                <p class="mb-0">
-                                                    <a href="javascript:void(0);" class="text-body">13 articles</a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-6 mb-4">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <div class="d-flex align-items-center mb-2">
-                                                    <div class="avatar avatar-sm">
-                                                        <div
-                                                            class="avatar-initial bg-label-primary rounded me-2 w-100">
-                                                            <i class="mdi mdi-lock-open-outline mdi-20px"> </i>
-                                                        </div>
-                                                    </div>
-                                                    <h5 class="mt-3 ms-2">Safety and security</h5>
-                                                </div>
-                                                <ul>
-                                                    <li class="text-primary py-1">
-                                                        <a href="./pages-help-center-categories.html">Security and
-                                                            hacked accounts</a>
-                                                    </li>
-                                                    <li class="text-primary pb-1">
-                                                        <a href="./pages-help-center-categories.html">Privacy</a>
-                                                    </li>
-                                                    <li class="text-primary pb-1">
-                                                        <a href="./pages-help-center-categories.html">Spam and fake
-                                                            accounts</a>
-                                                    </li>
-                                                </ul>
-                                                <p class="mb-0">
-                                                    <a href="javascript:void(0);" class="text-body">9 articles</a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-6 mb-4">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <div class="d-flex align-items-center mb-2">
-                                                    <div class="avatar avatar-sm">
-                                                        <div class="avatar-initial bg-label-danger rounded me-2 w-100">
-                                                            <i class="mdi mdi-content-paste mdi-20px"> </i>
-                                                        </div>
-                                                    </div>
-                                                    <h5 class="mt-3 ms-2">Rules and policies</h5>
-                                                </div>
-                                                <ul>
-                                                    <li class="text-primary py-1">
-                                                        <a href="./pages-help-center-categories.html">General</a>
-                                                    </li>
-                                                    <li class="text-primary pb-1">
-                                                        <a href="./pages-help-center-categories.html">Intellectual
-                                                            property</a>
-                                                    </li>
-                                                    <li class="text-primary pb-1">
-                                                        <a href="./pages-help-center-categories.html">Guidelines for
-                                                            law enforcement</a>
-                                                    </li>
-                                                </ul>
-                                                <p class="mb-0">
-                                                    <a href="javascript:void(0);" class="text-body">14 articles</a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-6 mb-4">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <div class="d-flex align-items-center mb-2">
-                                                    <div class="avatar avatar-sm">
-                                                        <div
-                                                            class="avatar-initial bg-label-warning rounded me-2 w-100">
-                                                            <i class="mdi mdi-message-outline mdi-20px"> </i>
-                                                        </div>
-                                                    </div>
-                                                    <h5 class="mt-3 ms-2">Chats</h5>
-                                                </div>
-                                                <ul>
-                                                    <li class="text-primary py-1">
-                                                        <a href="./pages-help-center-categories.html">Account</a>
-                                                    </li>
-                                                    <li class="text-primary pb-1">
-                                                        <a
-                                                            href="./pages-help-center-categories.html">Authentication</a>
-                                                    </li>
-                                                    <li class="text-primary pb-1">
-                                                        <a href="./pages-help-center-categories.html">Billing</a>
-                                                    </li>
-                                                </ul>
-                                                <p class="mb-0">
-                                                    <a href="javascript:void(0);" class="text-body">14 articles</a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-6 mb-4">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <div class="d-flex align-items-center mb-2">
-                                                    <div class="avatar avatar-sm">
-                                                        <div
-                                                            class="avatar-initial bg-label-secondary rounded me-2 w-100">
-                                                            <i class="mdi mdi-link mdi-20px"> </i>
-                                                        </div>
-                                                    </div>
-                                                    <h5 class="mt-3 ms-2">Connections</h5>
-                                                </div>
-                                                <ul>
-                                                    <li class="text-primary py-1">
-                                                        <a href="./pages-help-center-categories.html">Conversations</a>
-                                                    </li>
-                                                    <li class="text-primary pb-1">
-                                                        <a href="./pages-help-center-categories.html">Jobs</a>
-                                                    </li>
-                                                    <li class="text-primary pb-1">
-                                                        <a href="./pages-help-center-categories.html">People</a>
-                                                    </li>
-                                                </ul>
-                                                <p class="mb-0">
-                                                    <a href="javascript:void(0);" class="text-body">14 articles</a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
                 <!-- /Knowledge Base -->
 
                 <!-- Keep Learning -->
-                <div class="help-center-keep-learning py-5 mb-2">
-                    <div class="container-xl">
-                        <h4 class="text-center my-4">Keep Learning</h4>
-                        <div class="row mb-4">
-                            <div class="col-lg-10 mx-auto">
-                                <div class="row">
-                                    <div class="col-md-4 mb-md-0 mb-4">
-                                        <div class="card border shadow-none">
-                                            <div class="card-body text-center">
-                                                <img class="mb-3" src="../../assets/svg/icons/laptop.svg"
-                                                    height="60" alt="Help center landing">
-                                                <h5>Blogging</h5>
-                                                <p>Expert tips &amp; tools to improve your website or online store using
-                                                    blog.</p>
-                                                <a class="btn btn-outline-primary waves-effect"
-                                                    href="./pages-help-center-categories.html">Read More</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 mb-md-0 mb-4">
-                                        <div class="card border shadow-none">
-                                            <div class="card-body text-center">
-                                                <img class="mb-3" src="../../assets/svg/icons/lightbulb.svg"
-                                                    height="60" alt="Help center landing">
-                                                <h5>Inspiration Center</h5>
-                                                <p>Inspiration from experts to help you start and grow your big ideas.
-                                                </p>
-                                                <a class="btn btn-outline-primary waves-effect"
-                                                    href="./pages-help-center-categories.html">Read More</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 mb-md-0 mb-4">
-                                        <div class="card border shadow-none">
-                                            <div class="card-body text-center">
-                                                <img class="mb-3" src="../../assets/svg/icons/discord.svg"
-                                                    height="60" alt="Help center landing">
-                                                <h5>Community</h5>
-                                                <p>A group of people living in the same place or having a particular.
-                                                </p>
-                                                <a class="btn btn-outline-primary waves-effect"
-                                                    href="./pages-help-center-categories.html">Read More</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
                 <!-- /Keep Learning -->
 
-                <!-- Help Area -->
-                <div class="help-center-contact-us bg-help-center">
-                    <div class="container-xl">
-                        <div class="row justify-content-center py-5 my-4">
-                            <div class="col-md-8 col-lg-6 text-center">
-                                <h4>Still need help?</h4>
-                                <p class="mb-4">
-                                    Our specialists are always happy to help. Contact us during standard business hours
-                                    or email
-                                    us 24/7 and we'll get back to you.
-                                </p>
-                                <div class="d-flex justify-content-center flex-wrap gap-4">
-                                    <a href="javascript:void(0);"
-                                        class="btn btn-primary waves-effect waves-light">Visit our community</a>
-                                    <a href="javascript:void(0);"
-                                        class="btn btn-primary waves-effect waves-light">Contact us</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
                 <!-- /Help Area -->
             </div>
         </div>
     </div>
 
+    <footer class="footer bg-lighter">
+        <div
+            class="container-fluid d-flex flex-md-row flex-column justify-content-between align-items-md-center gap-1 container-p-x py-3">
+            <div>
+                <a href="https://demos.pixinvent.com/materialize-html-admin-template/landing/" target="_blank"
+                    class="footer-text fw-bolder">SIFASUM</a>
+                ©
+            </div>
+            <div>
+                <a href="https://themeforest.net/licenses/standard" class="footer-link me-4" target="_blank">License</a>
+                <a href="javascript:void(0)" class="footer-link me-4">Help</a>
+                <a href="javascript:void(0)" class="footer-link me-4">Contact</a>
+                <a href="javascript:void(0)" class="footer-link">Terms &amp; Conditions</a>
+            </div>
+        </div>
+    </footer>
     <!-- Overlay -->
     <div class="layout-overlay layout-menu-toggle"></div>
 
@@ -400,7 +181,20 @@
     <div class="drag-target"></div>
 
     <!--/ Layout wrapper -->
+    <script>
+        $('#bookRoom').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget);
+            var roomId = button.data('room-id');
+            var modal = $(this);
+            modal.find('#room_id').val(roomId);
+            modal.find('.modal-title').text('Booking of a room ' + button.parents('tr').children('.room-name')
+                .text());
 
+            $('#submitBooking').click(() => {
+                modal.find('button[type="submit"]').trigger('click');
+            });
+        });
+    </script>
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="{{ url('') }}/libs/jquery/jquery.js"></script>
@@ -413,7 +207,147 @@
 
     <script src="{{ url('') }}/js/menu.js"></script>
     <!-- endbuild -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.5.0/perfect-scrollbar.min.js"></script>
+    <script src="https://unpkg.com/@coreui/coreui@3.2/dist/js/coreui.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+    <script src="//cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
+    <script src="//cdn.datatables.net/buttons/1.2.4/js/buttons.flash.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.colVis.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/select/1.3.0/js/dataTables.select.min.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/16.0.0/classic/ckeditor.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+    <script>
+        $(function() {
+            let copyButtonTrans = '{{ trans('global.datatables.copy') }}'
+            let csvButtonTrans = '{{ trans('global.datatables.csv') }}'
+            let excelButtonTrans = '{{ trans('global.datatables.excel') }}'
+            let pdfButtonTrans = '{{ trans('global.datatables.pdf') }}'
+            let printButtonTrans = '{{ trans('global.datatables.print') }}'
+            let colvisButtonTrans = '{{ trans('global.datatables.colvis') }}'
+            let selectAllButtonTrans = '{{ trans('global.select_all') }}'
+            let selectNoneButtonTrans = '{{ trans('global.deselect_all') }}'
 
+            let languages = {
+                'en': 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/English.json',
+                'zh_TW': '../js/plugins/datatables/1.10.21/i18n/Chinese-traditional.json'
+            };
+
+            $.extend(true, $.fn.dataTable.Buttons.defaults.dom.button, {
+                className: 'btn'
+            })
+            $.extend(true, $.fn.dataTable.defaults, {
+                language: {
+                    url: languages['{{ app()->getLocale() }}']
+                },
+                columnDefs: [{
+                    orderable: false,
+                    className: 'select-checkbox',
+                    targets: 0
+                }, {
+                    orderable: false,
+                    searchable: false,
+                    targets: -1
+                }],
+                select: {
+                    style: 'multi+shift',
+                    selector: 'td:first-child'
+                },
+                order: [],
+                scrollX: true,
+                pageLength: 100,
+                dom: 'lBfrtip<"actions">',
+                buttons: [{
+                        extend: 'selectAll',
+                        className: 'btn-primary',
+                        text: selectAllButtonTrans,
+                        exportOptions: {
+                            columns: ':visible'
+                        },
+                        action: function(e, dt) {
+                            e.preventDefault()
+                            dt.rows().deselect();
+                            dt.rows({
+                                search: 'applied'
+                            }).select();
+                        }
+                    },
+                    {
+                        extend: 'selectNone',
+                        className: 'btn-primary',
+                        text: selectNoneButtonTrans,
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'copy',
+                        className: 'btn-default',
+                        text: copyButtonTrans,
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'csv',
+                        className: 'btn-default',
+                        text: csvButtonTrans,
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'excel',
+                        className: 'btn-default',
+                        text: excelButtonTrans,
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'pdf',
+                        className: 'btn-default',
+                        text: pdfButtonTrans,
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        className: 'btn-default',
+                        text: printButtonTrans,
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'colvis',
+                        className: 'btn-default',
+                        text: colvisButtonTrans,
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    }
+                ]
+            });
+
+            $.fn.dataTable.ext.classes.sPageButton = '';
+        });
+    </script>
     <!-- Vendors JS -->
 
     <!-- Main JS -->
